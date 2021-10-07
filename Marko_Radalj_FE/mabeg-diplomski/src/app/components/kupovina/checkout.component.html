@@ -1,0 +1,510 @@
+<div class="main-content page-m">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+        <div formGroupName="kupac" class="form-area">
+          <h3>Kupac</h3>
+          <div class="row">
+            <div class="col-md-2"><label>Ime kupca</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="ime" type="text" />
+             
+                <div *ngIf="ime?.invalid&&(ime?.dirty||ime?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="ime?.errors?.required || ime?.errors?.notOnlyWhitespace">
+
+                    Ime je obavezno
+                  </div>
+
+                  <div *ngIf="ime?.errors?.minlength">
+             Ime mora imati bar 2 karaktera
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2"><label>Prezime kupca</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="prezime" type="text" />
+
+                <div *ngIf="prezime?.invalid&&(prezime?.dirty||prezime?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="prezime?.errors?.required || prezime?.errors?.notOnlyWhitespace">
+
+                    Prezime je obavezno
+                  </div>
+
+                  <div *ngIf="prezime?.errors?.minlength">
+             Prezime mora imati bar 2 karaktera
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Ime firme</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="imeFirme" type="text" />
+
+
+                <div *ngIf="imeFirme?.invalid&&(imeFirme?.dirty||imeFirme?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="imeFirme?.errors?.required || imeFirme?.errors?.notOnlyWhitespace">
+
+                    Ime firme je obavezna
+                  </div>
+
+                  <div *ngIf="imeFirme?.errors?.minlength">
+             Ime firme mora imati bar 2 karaktera
+                  </div>
+
+                </div>
+
+
+
+
+
+
+
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Email</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="email" type="text" />
+
+
+
+
+                <div *ngIf="email?.invalid&&(email?.dirty||email?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="email?.errors?.required">
+
+                    Email je obavezan
+                  </div>
+
+                  <div *ngIf="email?.errors?.pattern">
+Email mora imati odgovarajuce email parametre
+                  </div>
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--shipping adresa-->
+        <div formGroupName="adresaZaSlanje" class="form-area">
+          <h3>Adresa za slanje</h3>
+          <div class="row">
+            <div class="col-md-2"><label>Država</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <select formControlName="imeDrzave" (change)="getStates('adresaZaSlanje')">
+                  <option *ngFor="let drzava of drzave"[ngValue]="drzava">
+                    {{drzava?.imeDrzave}}
+                  </option>
+                </select>
+
+                <div *ngIf="shippingDrzava?.invalid&&(shippingDrzava?.dirty||shippingDrzava?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="shippingDrzava?.errors?.required">
+
+                    Država je obavezna
+                  </div>
+
+                 
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-2"><label>Regija</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <select formControlName="imeRegije">
+                  <option *ngFor="let regije of shippingAddressStates"[ngValue]="regije">
+                    {{regije?.imeRegije}}
+                  </option>           
+                  </select>
+
+                  <div *ngIf="shippingRegija?.invalid&&(shippingRegija?.dirty||shippingRegija?.touched)" class="alert alert-danger mt-1">
+
+                    <div *ngIf="shippingRegija?.errors?.required">
+  
+                      Regija je obavezna
+                    </div>
+  
+                   
+  
+                  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-2"><label>Ulica </label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="ulica" type="text" />
+
+                <div *ngIf="shippingUlica?.invalid&&(shippingUlica?.dirty||shippingUlica?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="shippingUlica?.errors?.required || shippingUlica?.errors?.notOnlyWhitespace">
+
+                    Ulica je obavezna
+                  </div>
+
+                  <div *ngIf="shippingUlica?.errors?.minlength">
+             Ulica mora imati bar 2 karaktera
+                  </div>
+
+                 
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Grad</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="grad" type="text" />
+
+                <div *ngIf="shippingGrad?.invalid&&(shippingGrad?.dirty||shippingGrad?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="shippingGrad?.errors?.required || shippingGrad?.errors?.notOnlyWhitespace">
+
+                    Grad je obavezan
+                  </div>
+
+                  <div *ngIf="shippingGrad?.errors?.minlength">
+                  Grad mora imati bar 2 karaktera
+                         </div>
+
+                 
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Poštanski broj</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="postanskiBroj" type="text" />
+
+                <div *ngIf="shippingKod?.invalid&&(shippingKod?.dirty||shippingKod?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="shippingKod?.errors?.required || shippingKod?.errors?.notOnlyWhitespace">
+
+                   Poštanski broj je obavezan
+                  </div>
+
+                  <div *ngIf="shippingKod?.errors?.minlength">
+                    Poštanski broj mora imati bar 2 karaktera
+                         </div>
+
+                 
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-space">
+          <label class="au-checkbox">
+            <input
+              type="checkbox"
+              (change)="copyShippingAddressToBillingAddress($event)"
+            />
+            <span class="au-checkmark"></span>Podaci adrese za slanje su isti
+            kao podaci za plaćanje
+          </label>
+        </div>
+
+        <!--placanjePodaci-->
+
+        <div formGroupName="placanjePodaci" class="form-area">
+          <h3>Podaci za plaćanje</h3>
+          <div class="row">
+            <div class="col-md-2"><label>Država</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <select formControlName="imeDrzave" (change)="getStates('placanjePodaci')">
+                  <option *ngFor="let drzava of drzave"[ngValue]="drzava">
+                    {{drzava?.imeDrzave}}
+                  </option>            
+                    </select>
+
+
+                    <div *ngIf="placanjePodaciDrzava?.invalid&&(placanjePodaciDrzava?.dirty||placanjePodaciDrzava?.touched)" class="alert alert-danger mt-1">
+
+                      <div *ngIf="placanjePodaciDrzava?.errors?.required">
+    
+                        Država je obavezna
+                      </div>
+    
+                     
+    
+                    </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-2"><label>Regija</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <select formControlName="imeRegije">
+                  <option *ngFor="let regije of billingAddressStates"[ngValue]="regije">
+                    {{regije?.imeRegije}}
+                  </option>               
+                 </select>
+
+                 <div *ngIf="placanjePodaciRegija?.invalid&&(placanjePodaciRegija?.dirty||placanjePodaciRegija?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="placanjePodaciRegija?.errors?.required">
+
+                    Regija je obavezna
+                  </div>
+
+                 
+
+                </div>
+
+                 
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-2"><label>Ulica </label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="ulica" type="text" />
+                <div *ngIf="placanjePodaciUlica?.invalid&&(placanjePodaciUlica?.dirty||placanjePodaciUlica?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="placanjePodaciUlica?.errors?.required || placanjePodaciUlica?.errors?.notOnlyWhitespace">
+
+                  Ulica je obavezna
+                  </div>
+
+                  <div *ngIf="placanjePodaciUlica?.errors?.minlength">
+                    Ulica mora imati bar 2 karaktera
+                         </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Grad</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="grad" type="text" />
+
+                <div *ngIf="placanjePodaciGrad?.invalid&&(placanjePodaciGrad?.dirty||placanjePodaciGrad?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="placanjePodaciGrad?.errors?.required || placanjePodaciGrad?.errors?.notOnlyWhitespace">
+
+                  Grad je obavezan
+                  </div>
+                  <div *ngIf="placanjePodaciGrad?.errors?.minlength">
+                   Grad mora imati bar 2 karaktera
+                         </div>
+                 
+
+                </div>
+
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Poštanski broj</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="postanskiBroj" type="text" />
+
+                <div *ngIf="placanjePodaciKod?.invalid&&(placanjePodaciKod?.dirty||placanjePodaciKod?.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="placanjePodaciKod?.errors?.required || placanjePodaciKod?.errors?.notOnlyWhitespace">
+
+                Poštanski kod je obavezan
+                  </div>
+                  <div *ngIf="placanjePodaciKod?.errors?.minlength">
+                  Poštanski broj mora imati bar 2 karaktera
+                         </div>
+                 
+
+                </div>
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--cardInfo-->
+
+        <div formGroupName="creditCard" class="form-area">
+          <h3>Podaci kreditne kartice</h3>
+          <div class="row">
+            <div class="col-md-2"><label>Tip kartice</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <select formControlName="cardType">
+                  <option>Visa</option>
+                  <option>Mastercard</option>
+                </select>
+
+                <div *ngIf="creditCardType?.invalid && (creditCardType?.dirty || creditCardType?.touched)" class="alert alert-danger mt-1">
+                  <div *ngIf="creditCardType?.errors?.required">
+                      Tip kartice je obavezan
+                  </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Ime na kartici </label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="nameOnCard" type="text" />
+                
+                <div *ngIf="creditCardNameOnCard?.invalid && (creditCardNameOnCard?.dirty || creditCardType?.touched)" class="alert alert-danger mt-1">
+                  <div *ngIf="creditCardNameOnCard?.errors?.required">
+                      Ime sa kartice je obavezno
+                  </div>
+
+                  <div *ngIf="creditCardNameOnCard?.errors?.minlength">
+                    Ime mora imati bar 2 karaktera
+                           </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Broj kartice </label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="cardNumber" type="text" />
+
+                <div *ngIf="creditCardNumber?.invalid && (creditCardNumber?.dirty || creditCardNumber?.touched)" class="alert alert-danger mt-1">
+                  <div *ngIf="creditCardNumber?.errors?.required">
+                      Broj kartice je obavezan
+                  </div>
+
+                  <div *ngIf="creditCardNumber?.errors?.pattern">
+                    Broj kartice mora imati 16 cifara
+                           </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Sigurnosni kod </label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <input formControlName="securityCode" type="text" />
+
+                <div *ngIf="creditCardSecurityCode?.invalid && (creditCardSecurityCode?.dirty || creditCardSecurityCode?.touched)" class="alert alert-danger mt-1">
+                  <div *ngIf="creditCardSecurityCode?.errors?.required">
+                      Sigurnosni kod je obavezan
+                  </div>
+
+                  <div *ngIf="creditCardSecurityCode?.errors?.pattern">
+                    Sigurnosni kod mora imati 3 cifre
+                           </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Datum isteka kartice</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <select formControlName="expirationMonth">
+                  <option *ngFor="let mesec of creditCardMonths">
+                    {{ mesec }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2"><label>Godina isteka kartice</label></div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <select formControlName="expirationYear" (change)="handleMonthsAndYears()">
+                  <option *ngFor="let godina of creditCardYears">
+                    {{ godina }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--podaci kupovine-->
+
+        <div class="form-area">
+          <h3>Pregled Vaše porudžbine</h3>
+          <p>Ukupan broj proizvoda:{{ totalQuantity }}</p>
+          <p>Ukupna cena:{{ totalPrice | currency: "EUR" }}</p>
+        </div>
+
+        <!--submit-->
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success">Kupi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

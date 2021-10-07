@@ -1,0 +1,53 @@
+<div class="page-wrapper">
+  <!-- MENU SIDEBAR-->
+  <aside class="menu-sidebar d-none d-lg-block">
+    <div class="logo">
+      <a routerLink="/proizvodi">
+        <img
+          src="assets/images/providni_logo.png"
+          
+          alt="Mabeg shop"
+          class="img-responsive"
+        />
+      </a>
+    </div>
+
+<app-proizvod-kategorija-meni></app-proizvod-kategorija-meni>
+  </aside>
+
+  <div class="page-container">
+    <!-- HEADER DESKTOP-->
+    <header class="header-desktop">
+      <div class="section-content section-content-p30">
+        <div class="container-fluid">
+          <div class="header-wrap">
+
+
+
+<app-pretraga></app-pretraga>
+
+<app-login-status></app-login-status>
+
+            
+            <app-cart-status></app-cart-status>
+          </div>
+          <div class="account-wrap"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT-->
+<router-outlet></router-outlet>
+
+  </div>
+</div>
+
+<!--end page-->
+
+<footer>
+  <ul>
+ 
+    <li><a href="https://play.google.com/store/apps/details?id=com.aplikacija.Mabeg"  onMouseOver="this.style.color='#000'"
+      onMouseOut="this.style.color='#fff'" target="_blank"style="text-decoration:none;">Android aplikacija</a></li>
+  </ul>
+</footer>

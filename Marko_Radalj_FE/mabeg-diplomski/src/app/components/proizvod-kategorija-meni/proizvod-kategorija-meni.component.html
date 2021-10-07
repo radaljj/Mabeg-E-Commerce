@@ -1,0 +1,23 @@
+<style>
+
+.menu-sidebar-content{
+    background-color: #FFFFF0;
+}
+    
+</style>
+
+<div class="menu-sidebar-content js-scrollbar1">
+    <nav class="navbar-sidebar">
+        <ul class="list-unstyled navbar-list">
+
+            <li *ngFor="let kategorija of proizvodKategorija">
+
+                <a routerLink="/kategorija/{{ kategorija.id }}"  style="text-decoration:none" routerLinkActive="active-link">
+                    {{ kategorija.imeKategorije }}
+                </a>
+                
+            </li>
+
+        </ul>
+    </nav>
+</div>

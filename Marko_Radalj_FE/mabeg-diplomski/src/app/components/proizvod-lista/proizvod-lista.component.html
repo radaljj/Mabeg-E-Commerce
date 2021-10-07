@@ -1,0 +1,112 @@
+<style>
+    .btn-outline-warning{
+color:black;
+border-color: black;
+background-color:rgb(243, 243, 243);
+
+    }
+    .btn-outline-warning:hover{
+        background-color:#ffc107;
+    }
+img {
+    float: inline-end;
+    width:  200px;
+    height: 150px;
+    object-fit: scale-down;
+}
+.select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+.page-item.active{
+    z-index: 3;
+    color: #fff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+
+</style>
+
+
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div *ngFor="let proizvod of proizvodi" class="col-md-3">
+
+                    <div class="product-box">
+                        <a routerLink="/proizvodi/{{proizvod.id}}">
+                        <img src="{{ proizvod.slikaUrl }}" class="img-responsive" >
+                    </a>
+
+                        <h1>{{ proizvod.imeProizvoda }}</h1>
+                        <div class="price">{{ proizvod.cenaProizvoda | currency:'EUR' }}</div>
+                        <button (click)="addToCart(proizvod)" href="#" class="btn btn-outline-warning">Dodaj u korpu</button>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="proizvodi?.length==0" class="alert alert-warning col-md-12" role="alert">
+                    Nije pronadjen ni jedan proizvod
+                </div>
+            </div>
+
+
+
+            
+
+  <div class="footer-pagination" >
+    <div class="row">
+        <div class="col-md-6"></div>
+
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-9" style="padding-left: 30%" >
+                
+                    <ngb-pagination  [(page)]="thePageNumber"
+                                    [pageSize]="thePageSize"
+                                    [collectionSize]="theTotalElements"
+                                    [maxSize]="4"
+                                [boundaryLinks]="true"    
+                                
+                                    (pageChange)="listProducts()">
+
+                    </ngb-pagination>
+
+                </div>
+<div class="col-md-3 mt-2" >
+    <span class="mr-2">Veličina strane</span>
+    <select  (change)="updatePageSize($event.target.value)" style="color: black;">
+        <option>2</option>
+        <option>4</option>
+        <option>6</option>
+        <option selected="true">8</option>
+
+    </select>
+
+
+</div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+        </div>
+    </div>
+</div>

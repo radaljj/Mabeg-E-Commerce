@@ -1,0 +1,85 @@
+<style>
+table.table.table-bordered th{
+    background: black;
+}
+.btn-danger{
+    background-color: red;
+}
+.btn-success{
+    background-color: green;
+}
+
+
+</style>
+
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+
+
+            <div *ngIf="cartItems.length>0">
+
+
+            <table class="table table-bordered">
+                <tr>
+                    <th width="20%">Slika proizvoda</th>
+                    <th width="50%">Detalji proizvoda</th>
+                    <th width="30%"></th>
+                </tr>
+
+                <tr *ngFor="let korpaProizvod of cartItems">
+                    <td>
+                        <img src="{{ korpaProizvod.slikaUrl }}" class="img-responsive" width="150px" />
+                    </td>
+                    <td>
+                        <p>{{ korpaProizvod.imeProizvoda }}</p>
+                        <p>{{ korpaProizvod.cenaProizvoda | currency: 'EUR' }}</p>
+                    </td>
+                    <td>
+                        <div class="items">
+                            <label>Količina:</label> 
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <button (click)="incrementKolicina(korpaProizvod)" class="btn btn-outline-warning">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="col ml-4 mr-2">{{ korpaProizvod.brojUKorpi }}
+
+                                </div>
+
+                                <div class="col">
+                                    <button  (click)="decrementKolicina(korpaProizvod)" class="btn btn-outline-warning">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                                <div class="col-8"></div>
+                            </div>
+                        </div>
+
+                       <button (click)="ukloniSve(korpaProizvod)" class="btn btn-danger">Ukloni</button>
+                        <p class="mt-2">Ukupna cena ovog proizvoda: {{ korpaProizvod.brojUKorpi * korpaProizvod.cenaProizvoda | currency: 'EUR' }}</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"></td>
+                    <td style="font-weight: bold">
+                        <p>Ukupno proizvoda u korpi: {{ totalQuantity }}</p>
+                        <p>Ukupna cena: {{ totalPrice | currency: 'EUR' }}</p>
+                        <a routerLink="/kupovina" class="btn btn-success" style="margin-bottom: 5px;">Kupovina</a>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div *ngIf="cartItems.length==0" class="alert alert-warning col-md-12"role="alert">
+            Korpa je prazna.
+        </div>
+           
+
+        </div>
+    </div>
+</div>
